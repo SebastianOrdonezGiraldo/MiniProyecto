@@ -3,33 +3,34 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
 
-        // Crear grafo
+        // Crear el grafo con los edificios del campus
         Grafo grafo = new Grafo();
 
-        // Agregar nodos y aristas (ejemplo con 10 nodos)
-        grafo.agregarArista("A", "B", 4);
-        grafo.agregarArista("A", "C", 2);
-        grafo.agregarArista("B", "D", 5);
-        grafo.agregarArista("C", "D", 8);
-        grafo.agregarArista("C", "E", 10);
-        grafo.agregarArista("D", "E", 2);
-        grafo.agregarArista("D", "F", 6);
-        grafo.agregarArista("E", "F", 3);
-        grafo.agregarArista("B", "G", 7);
-        grafo.agregarArista("E", "H", 1);
-        grafo.agregarArista("H", "I", 4);
-        grafo.agregarArista("I", "J", 6);
+        // Conexiones del campus (latencias reales en ms)
+        grafo.agregarArista("BIB", "LAB", 5);
+        grafo.agregarArista("BIB", "ADM", 3);
+        grafo.agregarArista("LAB", "ING", 4);
+        grafo.agregarArista("LAB", "MED", 9);
+        grafo.agregarArista("ADM", "ING", 6);
+        grafo.agregarArista("ADM", "CAF", 7);
+        grafo.agregarArista("ING", "MED", 2);
+        grafo.agregarArista("MED", "CAF", 5);
+        grafo.agregarArista("CAF", "DEP", 11);
+        grafo.agregarArista("DEP", "RES", 6);
+        grafo.agregarArista("RES", "AUD", 4);
+        grafo.agregarArista("AUD", "PAR", 7);
+        grafo.agregarArista("PAR", "BIB", 10);
 
-        // Elegir nodo origen
-        String origen = "A";
+        // Seleccionar el edificio origen para medir latencias
+        String origen = "BIB";
 
         // Ejecutar Dijkstra
         Map<String, Integer> distancias = Dijkstra.calcular(grafo, origen);
 
         // Mostrar resultados
-        System.out.println("Distancias mínimas desde el nodo " + origen + ":");
+        System.out.println("Latencias mínimas (ms) desde " + origen + " hacia todos los edificios:\n");
         for (Map.Entry<String, Integer> entry : distancias.entrySet()) {
-            System.out.println("→ " + entry.getKey() + " = " + entry.getValue());
+            System.out.println("→ " + entry.getKey() + ": " + entry.getValue() + " ms");
         }
     }
 }
